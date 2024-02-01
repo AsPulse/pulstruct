@@ -1,14 +1,12 @@
-pub fn add(left: usize, right: usize) -> usize {
-  left + right
-}
+use api::pulstruct_api_impl;
 
-#[cfg(test)]
-mod tests {
-  use super::*;
+mod api;
+extern crate proc_macro;
 
-  #[test]
-  fn it_works() {
-    let result = add(2, 2);
-    assert_eq!(result, 4);
-  }
+#[proc_macro_attribute]
+pub fn pulstruct_api(
+  attr: proc_macro::TokenStream,
+  item: proc_macro::TokenStream,
+) -> proc_macro::TokenStream {
+  pulstruct_api_impl(attr.into(), item.into()).into()
 }
